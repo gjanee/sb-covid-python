@@ -13723,15 +13723,15 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;north&quot;</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">]:</span>
     <span class="n">base_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-        <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span>
-        <span class="n">y</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;new_cases&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)],</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span> <span class="n">region</span><span class="p">),</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;new_cases&quot;</span><span class="p">,</span> <span class="n">region</span><span class="p">)],</span>
         <span class="n">style</span><span class="o">=</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span>
         <span class="n">markevery</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">loglog</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
 <span class="n">xticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">]</span>  <span class="c1"># default tick labels are lame</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
@@ -13784,8 +13784,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">base_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">growth_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">12</span><span class="p">,(</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span><span class="s2">&quot;north&quot;</span><span class="p">)]</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,(</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span><span class="s2">&quot;north&quot;</span><span class="p">)])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">base_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+<span class="n">column</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">)</span>
+<span class="n">growth_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">12</span><span class="p">][</span><span class="n">column</span><span class="p">]</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">column</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">doubling_time</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="n">growth_rate</span><span class="p">)</span>  <span class="c1"># weeks</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average growth rate each week: {int(round((growth_rate-1)*100))}%&quot;</span><span class="p">)</span>
