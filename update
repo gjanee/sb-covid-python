@@ -1,0 +1,10 @@
+#!/bin/bash
+
+wget=/opt/local/bin/wget
+jupyter=/opt/anaconda3/bin/jupyter
+
+$wget -O data/cache.html https://publichealthsbc.org/status-reports/
+
+$jupyter nbconvert scrape.ipynb --execute --stdout > /dev/null
+$jupyter nbconvert index.ipynb --execute --to=notebook --inplace
+$jupyter nbconvert index.ipynb --execute --to=html
